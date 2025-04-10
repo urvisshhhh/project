@@ -1,0 +1,91 @@
+.movie-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .add-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  .movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  .movie-card {
+    background-color: #1f2937;
+    color: white;
+    border-radius: 10px;
+    width: 260px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .movie-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  
+  .movie-info {
+    padding: 10px;
+    flex: 1;
+  }
+  
+  .movie-info h3 {
+    margin-bottom: 8px;
+    font-size: 20px;
+  }
+  
+  .movie-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-top: 1px solid #333;
+    background-color: #111827;
+  }
+  
+  .movie-actions button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+  }
+  
+  .movie-actions button:first-child {
+    background-color: #3b82f6;
+  }
+  
+  .movie-actions button.delete-btn {
+    background-color: #ef4444;
+  }
+  
+  .movie-list::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .movie-list::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+  }
+  
+  .movie-list::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
+  

@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-gray-900 text-white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gold/20 rounded-full hover:bg-gold/30;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  @apply text-gold !important;
+}
+
+.swiper-pagination-bullet {
+  @apply bg-gold !important;
+}
