@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import type { Movie } from '../types';
+import type { Movie } from '../types'; 
 import { Clock, Star, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -11,27 +11,28 @@ interface MovieCardProps {
 const MovieCard = ({ movie, variant = 'default' }: MovieCardProps) => {
   const navigate = useNavigate();
 
-  // Handle "Book Now" click
-  const handleBookNow = () => {
-    const token = localStorage.getItem('token'); // Check if the user is logged in
+  const handleBookNow = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
     if (token) {
-      // If the user is logged in, you can proceed to booking page (if you have one)
-      // navigate('/book-now'); // Un-comment and update this if you have a booking page
-      alert('Proceeding to Book Now'); // Placeholder for actual booking flow
+      navigate(`/seats/${movie._id}`, {
+        state: {
+          movieTitle: movie.title,
+          theatre: "PVR Luxe" // you can make it dynamic later
+        }
+      });
     } else {
-      // If the user is not logged in, redirect to the login page
       navigate('/login');
     }
   };
 
-  // Parse release date and check if it's in the future
   const releaseDate = new Date(movie.releaseDate);
   const isFutureRelease = releaseDate > new Date();
 
-  // Card classes based on variant
-  const cardClasses = variant === 'large' 
-    ? 'col-span-2 grid grid-cols-2 gap-6'
-    : 'flex flex-col';
+  const cardClasses =
+    variant === 'large'
+      ? 'col-span-2 grid grid-cols-2 gap-6'
+      : 'flex flex-col';
 
   return (
     <motion.div
@@ -40,7 +41,7 @@ const MovieCard = ({ movie, variant = 'default' }: MovieCardProps) => {
       transition={{ duration: 0.5 }}
       className={`group relative overflow-hidden rounded-lg bg-gray-900 transition-all hover:scale-[1.02] ${cardClasses}`}
     >
-      <Link to={`/`} className="block h-full">
+      <div className="block h-full">
         <div className={variant === 'large' ? 'h-full' : 'h-[400px]'}>
           <img
             src={movie.poster}
@@ -57,34 +58,47 @@ const MovieCard = ({ movie, variant = 'default' }: MovieCardProps) => {
                 <span>{movie.duration}</span>
               </div>
               <div className="flex items-center space-x-1">
-                <Star className="w-4 h-4 text-gold" />
+                <Star className="w-4 h-4 text-yellow-400" />
                 <span>{movie.rating}</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Calendar className="w-4 h-4" />
-                <span>{movie.releaseDate}</span>
+                <span>{releaseDate.toLocaleDateString()}</span>
               </div>
             </div>
             <div className="flex flex-wrap gap-2 mb-4">
               {movie.genre.map((g) => (
                 <span
                   key={g}
-                  className="px-3 py-1 text-sm bg-gold/20 text-gold rounded-full"
+                  className="px-3 py-1 text-sm bg-yellow-400/20 text-yellow-300 rounded-full"
                 >
                   {g}
                 </span>
               ))}
             </div>
-            <button
-              onClick={handleBookNow}
-              className={`w-full font-semibold py-3 rounded-md transition ${isFutureRelease ? 'bg-gray-500 cursor-not-allowed' : 'bg-gold text-black hover:bg-gold/90'}`}
-              disabled={isFutureRelease}
-            >
-              {isFutureRelease ? 'Coming Soon' : 'Book Now'}
-            </button>
+            <div className="flex gap-4">
+              <Link
+                to={`/movie/${movie._id}`}
+                className="w-1/2 font-semibold py-3 text-center rounded-md bg-gray-300 text-black hover:bg-gray-400 transition"
+              >
+                View Details
+              </Link>
+
+              <button
+                onClick={handleBookNow}
+                className={`w-1/2 font-semibold py-3 rounded-md transition ${
+                  isFutureRelease
+                    ? 'bg-gray-600 text-white cursor-not-allowed'
+                    : 'bg-yellow-400 text-black hover:bg-yellow-300'
+                }`}
+                disabled={isFutureRelease}
+              >
+                {isFutureRelease ? 'Coming Soon' : 'Book Now'}
+              </button>
+            </div>
           </div>
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 };

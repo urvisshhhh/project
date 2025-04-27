@@ -13,19 +13,6 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-// ❌ REMOVE this because `app` is not defined
-// app.get('/cinemas', async (req, res) => {  
-//   try {
-//     const city = req.query.city || 'New York';
-//     const cinemas = await Cinema.find({ city });
-//     res.json(cinemas);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Server Error' });
-//   }
-// });
-
-// ✅ Fetch a cinema by ID
 router.get("/:id", async (req, res) => {
   try {
     const cinema = await Cinema.findById(req.params.id);

@@ -2,11 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Star } from 'lucide-react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+interface Cinema {
+  _id: string;
+  name: string;
+  image: string;
+  rating: number;
+  location: string;
+  city: string;
+  amenities: string[];
+}
 
 const Cinemas = () => {
-  const [cinemas, setCinemas] = useState([]);
+  const [cinemas, setCinemas] = useState<Cinema[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null); // Updated type here
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCinemas = async () => {
@@ -22,6 +35,11 @@ const Cinemas = () => {
 
     fetchCinemas();
   }, []);
+
+  const handleViewShowtimes = () => {
+    // Navigate to the SeatLayout page with the selected cinema ID.
+    navigate(`/seats`);
+  };
 
   return (
     <div className="pt-16">
@@ -85,7 +103,10 @@ const Cinemas = () => {
                       </span>
                     ))}
                   </div>
-                  <button className="w-full bg-gold text-black font-semibold py-3 rounded-md hover:bg-gold/90 transition">
+                  <button
+                    onClick={() => handleViewShowtimes()  }
+                    className="w-full bg-gold text-black font-semibold py-3 rounded-md hover:bg-gold/90 transition"
+                  >
                     View Showtimes
                   </button>
                 </div>

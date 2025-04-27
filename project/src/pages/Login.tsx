@@ -21,26 +21,47 @@ const Login = () => {
   };
 
   const validateForm = () => {
-    const nameRegex = /^[a-zA-Z\s]{2,}$/; // Must be at least 2 letters
+    const nameRegex = /^[a-zA-Z\s]{2,}$/; 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{10}$/;
+    const phoneRegex = /^\d{10}$/;
 
-    if (!isLogin && !nameRegex.test(formData.fullName)) {
-      alert("Full name should contain at least 2 letters and only alphabets/spaces.");
+    if (!isLogin) {
+      if (!formData.fullName.trim()) {
+        alert("Full Name is required.");
+        return false;
+      }
+      if (!nameRegex.test(formData.fullName)) {
+        alert("Full Name must contain only alphabets and at least 2 characters.");
+        return false;
+      }
+      if (!formData.phone.trim()) {
+        alert("Phone number is required.");
+        return false;
+      }
+      if (!phoneRegex.test(formData.phone)) {
+        alert("Phone number must be exactly 10 digits.");
+        return false;
+      }
+    }
+
+    if (!formData.email.trim()) {
+      alert("Email address is required.");
       return false;
     }
     if (!emailRegex.test(formData.email)) {
       alert("Please enter a valid email address.");
       return false;
     }
-    if (!isLogin && !phoneRegex.test(formData.phone)) {
-      alert("Phone number must be exactly 10 digits.");
+
+    if (!formData.password.trim()) {
+      alert("Password is required.");
       return false;
     }
     if (formData.password.length < 6 || formData.password.length > 8) {
       alert("Password must be between 6 to 8 characters.");
       return false;
     }
+
     return true;
   };
 
@@ -52,6 +73,7 @@ const Login = () => {
       const url = isLogin
         ? "http://localhost:5000/api/auth/login"
         : "http://localhost:5000/api/auth/register";
+
       const { data } = await axios.post(url, formData);
 
       if (isLogin) {
@@ -64,7 +86,7 @@ const Login = () => {
         setIsLogin(true);
       }
     } catch (error) {
-      alert(error.response?.data?.message || "Something went wrong");
+      alert(error.response?.data?.message || "Something went wrong, please try again.");
     }
   };
 
@@ -88,7 +110,7 @@ const Login = () => {
             </p>
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleSubmit} noValidate>
             {!isLogin && (
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -101,11 +123,8 @@ const Login = () => {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleChange}
-                    pattern="[A-Za-z\s]{2,}"
-                    title="Name must be at least 2 characters long, only alphabets and spaces allowed"
                     className="w-full bg-gray-700 text-white pl-10 pr-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    placeholder="John Doe"
-                    required
+                    placeholder="Your name"
                   />
                 </div>
               </div>
@@ -124,7 +143,6 @@ const Login = () => {
                   onChange={handleChange}
                   className="w-full bg-gray-700 text-white pl-10 pr-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="you@example.com"
-                  required
                 />
               </div>
             </div>
@@ -141,11 +159,8 @@ const Login = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    pattern="\d{10}"
-                    title="Phone number must be 10 digits"
                     className="w-full bg-gray-700 text-white pl-10 pr-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    placeholder="9876543210"
-                    required
+                    placeholder="1234567890"
                   />
                 </div>
               </div>
@@ -162,23 +177,21 @@ const Login = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  minLength={6}
-                  maxLength={8}
-                  title="Password must be 6 to 8 characters"
                   className="w-full bg-gray-700 text-white pl-10 pr-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                  placeholder="••••••••"
-                  required
+                  placeholder="••••••"
                 />
               </div>
-              <div className="text-right mt-2">
-                <button
-                  type="button"
-                  onClick={() => navigate("/forgot-password")}
-                  className="text-yellow-400 hover:text-yellow-300 text-sm"
-                >
-                  Forgot Password?
-                </button>
-              </div>
+              {isLogin && (
+                <div className="text-right mt-2">
+                  <button
+                    type="button"
+                    onClick={() => navigate("/forgot-password")}
+                    className="text-yellow-400 hover:text-yellow-300 text-sm"
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
+              )}
             </div>
 
             <button

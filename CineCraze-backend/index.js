@@ -5,8 +5,6 @@ const cors = require("cors");
 const cinemaRoutes = require('./routes/cinemaRoutes');
 const movieRoutes = require("./routes/movieRoutes");  // ✅ Import movie routes
 
-
-
 const app = express();
 
 // Middleware
@@ -25,8 +23,6 @@ mongoose
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/cinemas", cinemaRoutes);
-
-
 app.use("/api/movies", movieRoutes);  // ✅ Add movie routes
 
 const PORT = process.env.PORT || 5000;

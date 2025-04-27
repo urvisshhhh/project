@@ -67,7 +67,6 @@ const Navbar = () => {
             <MobileNavItem to="/movies" icon={<Film className="w-4 h-4" />} text="Now Showing" />
             <MobileNavItem to="/upcoming" icon={<Calendar className="w-4 h-4" />} text="Upcoming" />
             <MobileNavItem to="/cinemas" icon={<MapPin className="w-4 h-4" />} text="Cinemas" />
-            <MobileNavItem to="/offers" icon={<Ticket className="w-4 h-4" />} text="Offers" />
 
             {/* Profile for Mobile */}
             {isLoggedIn ? (

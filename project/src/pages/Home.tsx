@@ -5,7 +5,7 @@ import { Movie } from '../types';
 import { fetchMovies } from '../api'; // API function to fetch movies from the database
 
 const Home = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [Movies, setMovies] = useState<Movie[]>([]);
   const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([]);
   const [nowShowingMovies, setNowShowingMovies] = useState<Movie[]>([]);
 
@@ -16,11 +16,15 @@ const Home = () => {
         setMovies(data);
 
         // Filter upcoming movies (release date in the future)
-        const upcoming = data.filter((movie: { releaseDate: string | number | Date; }) => new Date(movie.releaseDate) > new Date());
+        const upcoming = data.filter(
+          (movie: Movie) => new Date(movie.releaseDate) > new Date()
+        );
         setUpcomingMovies(upcoming);
 
         // Filter now showing movies (release date in the past or today)
-        const nowShowing = data.filter((movie: { releaseDate: string | number | Date; }) => new Date(movie.releaseDate) <= new Date());
+        const nowShowing = data.filter(
+          (movie: Movie) => new Date(movie.releaseDate) <= new Date()
+        );
         setNowShowingMovies(nowShowing);
       })
       .catch((error) => console.error('Error fetching movies:', error));
@@ -41,7 +45,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {nowShowingMovies.length > 0 ? (
             nowShowingMovies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+              <MovieCard key={movie._id || movie._id} movie={movie} />
             ))
           ) : (
             <p className="text-white">No movies currently showing.</p>
@@ -60,7 +64,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {upcomingMovies.length > 0 ? (
             upcomingMovies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+              <MovieCard key={movie._id || movie._id} movie={movie} />
             ))
           ) : (
             <p className="text-white">No upcoming movies found.</p>
@@ -72,4 +76,3 @@ const Home = () => {
 };
 
 export default Home;
- 

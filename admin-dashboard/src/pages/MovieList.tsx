@@ -36,13 +36,12 @@ const MovieList: React.FC = () => {
             <button onClick={() => navigate("/add-movie")} className="add-btn">➕ Add New Movie</button>
             <div className="movie-list">
                 {movies.map((movie) => (
-                    <div key={movie._id} className="movie-card">
-                        <img src={movie.poster} alt={movie.poster} />
+                    <div key={movie.id} className="movie-card">
+                        <img src={movie.posterUrl} alt={movie.posterUrl} />
                         <div className="movie-info">
                             <h3>{movie.title}</h3>
                             <p>📅 Release Date: {new Date(movie.releaseDate).toLocaleDateString()}</p>
                             <p>🎬 Genre: {movie.genre}</p>
-                            <p>⭐ Rating: {movie.rating}</p>
                         </div>
                         <div className="movie-actions">
                             <button onClick={() => navigate(`/update-movie/${movie._id}`, { state: { movie } })}>✏️ Edit</button>

@@ -1,17 +1,4 @@
-export interface Movie {
-  id: string;
-  title: string;
-  poster: string;
-  backdrop?: string;
-  genre: string[];
-  language: string;
-  duration: string;
-  rating: string;
-  releaseDate: string;
-  synopsis?: string;
-  trailer?: string;
-  cast?: CastMember[];
-}
+// src/types.ts
 
 export interface CastMember {
   id: string;
@@ -19,6 +6,26 @@ export interface CastMember {
   role: string;
   image: string;
 }
+export interface Movie {
+  _id: string;
+  title: string;
+  poster: string;
+  genre: string[];
+  language: string[];
+  duration: string;
+  rating: string;
+  releaseDate: string;
+  synopsis?: string;
+  trailer?: string;
+  cast: {
+    id: string;
+    name: string;
+    role: string;
+    image: string;
+  }[];
+}
+
+
 
 export interface ShowTime {
   id: string;

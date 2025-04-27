@@ -11,6 +11,7 @@ import Settings from "./pages/Settings";
 import CinemaPage from "./pages/CinemaPage";
 import CinemaForm from "./pages/CinemaForm";
 import EditCinema from "./pages/EditCinema"; // ✅ Import EditCinema Page
+import ShowtimeManager from "./pages/ShowtimeManager";
 
 function App() {
   return (
@@ -23,16 +24,17 @@ function App() {
           <Route path="users" element={<Users />} />
           <Route path="settings" element={<Settings />} />
           <Route path="/movies" element={<MovieList />} />
-        <Route path="/add-movie" element={<AddMovie />} />
-        <Route path="/update-movie/:id" element={<UpdateMovie />} />
-        <Route path="*" element={<MovieList />} /> {/* Default to movie list */}
-     
+          <Route path="/add-movie" element={<AddMovie />} />
+          <Route path="/showtime-manager" element={<ShowtimeManager />} /> {/* Updated path */}
 
+          <Route path="/update-movie/:id" element={<UpdateMovie />} />
+          
           {/* ✅ Corrected Cinema Routes */}
           <Route path="cinemas" element={<CinemaPage />} />
           <Route path="cinemas/add" element={<CinemaForm />} />
           <Route path="cinemas/edit/:id" element={<EditCinema />} />
         </Route>
+
       </Routes>
     </BrowserRouter>
   );

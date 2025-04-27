@@ -12,7 +12,7 @@ import {
 const navigation = [
   { name: "Dashboard", icon: LayoutDashboard, path: "/" },
   { name: "Movies", icon: Film, path: "/movies" },
-  { name: "Shows", icon: Monitor, path: "/" },
+  { name: "Shows", icon: Monitor, path: "/showtime-manager" },
   { name: "Bookings", icon: Ticket, path: "/" },
   { name: "Users", icon: Users, path: "/" },
   { name: "Cinemas", icon: Clapperboard, path: "/cinemas" }, // Added Cinemas
